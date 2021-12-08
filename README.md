@@ -1,7 +1,7 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2021-12-08 13:26:15
- * @LastEditTime : 2021-12-08 16:24:52
+ * @LastEditTime : 2021-12-08 16:38:53
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\README.md
@@ -24,7 +24,8 @@
     <img src="https://img.shields.io/badge/Release-v0.1.0-blue">
     <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&label=Gitee%20stars&url=https://gitee.com/api/v5/repos/luheqiu/motor-controller-with-foc&query=$.stargazers_count">
     <img src="https://img.shields.io/badge/Platform-KEIL & AD-lightgray">
-    <img src="https://img.shields.io/badge/Progres-硬件设计完成-yellow">
+    <img src="https://img.shields.io/badge/Progress-硬件设计完成-yellow">
+    <img src="https://img.shields.io/badge/Language-C-brightgreen">
 </p>
 
 ## 📕 介绍
@@ -138,7 +139,7 @@ FOC，即Field Oriented Control的缩写，可以译为磁场定向控制或矢�
 
 </details>
 
-## 📄 使用
+## 🚀 快速上手
 1. 可使用AD软件打开 *FOC_Controller.PcbDoc* 文件，根据需要进行修改或生成Gerber文件发送给PCB板厂进行制作。工艺为四层板，建议外层铜厚1oz及以上，内层铜厚0.5oz及以上。
 2. 使用趁手的焊台进行焊接。
 3. 检查焊接与上电是否正常。
