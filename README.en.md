@@ -1,36 +1,32 @@
-# MotorControllerWithFOC
+<!--
+ * @Author       : LuHeQiu
+ * @Date         : 2021-12-08 13:26:15
+ * @LastEditTime : 2021-12-08 15:43:43
+ * @LastEditors  : DeaneChen
+ * @Description  : 
+ * @FilePath     : \motor-controller-with-foc\README.en.md
+ * HomePage     : https://luheqiu.com
+-->
+<div align="center">
+    <br/>
+    <h1>
+        <a href="http://www.luheqiu.com" target="_blank" rel="noopener noreferrer">
+        <img src="https://cxbox.luheqiu.com/Static/image/LuHeQiu_LOGO(1920x1080)HD.png" alt="LuHeQiu Logo">
+        </a>
+    </h1>
+    <strong>路何求创想工坊出品 | 硬件&算法工坊</strong>
+</div>
 
-#### Description
-基于FOC控制算法和STM32主控芯片的双路直流无刷电机控制器
+# 【FOC+STM32】Dual-Channel Controller of BLDC Motor with FOC - README
 
-#### Software Architecture
-Software architecture description
+<p align="center">
+    <img src="https://img.shields.io/badge/Release-v0.1.0-blue">
+    <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&label=Gitee%20stars&url=https://gitee.com/api/v5/repos/luheqiu/motor-controller-with-foc&query=$.stargazers_count">
+    <img src="https://img.shields.io/badge/Platform-KEIL & AD-lightgray">
+</p>
 
-#### Installation
+#### INTRODUCTION
+The main control chip of the controller is STM32F405RGT6. And the controller is based on the HAL library and the FreeRTOS. It reserves one CAN, USART, SWD, and USB interface, which is convenient for communication and control engineering applications. The controller provides dual-channel brushless motor control, and reserves the encoder interface and voltage sampling interface respectively, which is suitable for control applications or algorithm verification of inductive FOC and non-inductive FOC. Besides, the control board can also be suitable for vector control of asynchronous motors.
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+> **Note: This project is a hardware design and algorithm verification project. It is currently in the design and verification stage. Complete engineering application tests and extreme parameter stress tests have not been carried out. Please do not use it directly to avoid safety issues and property losses. The subsequent verification will be updated synchronously**
 
-#### Instructions
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### Contribution
-
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
