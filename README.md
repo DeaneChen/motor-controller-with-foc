@@ -1,7 +1,7 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2021-12-08 13:26:15
- * @LastEditTime : 2021-12-08 16:38:53
+ * @LastEditTime : 2021-12-13 01:11:49
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\README.md
@@ -10,7 +10,7 @@
 <div align="center">
     <br/>
     <h1>
-        <a href="http://www.luheqiu.com" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.luheqiu.com" target="_blank" rel="noopener noreferrer">
         <img width="80%" src="https://cxbox.luheqiu.com/Static/image/LuHeQiu_LOGO(1920x1080)HD.png" alt="LuHeQiu Logo">
         </a>
     </h1>
@@ -24,12 +24,14 @@
     <img src="https://img.shields.io/badge/Release-v0.1.0-blue">
     <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&label=Gitee%20stars&url=https://gitee.com/api/v5/repos/luheqiu/motor-controller-with-foc&query=$.stargazers_count">
     <img src="https://img.shields.io/badge/Platform-KEIL & AD-lightgray">
-    <img src="https://img.shields.io/badge/Progress-硬件设计完成-yellow">
+    <img src="https://img.shields.io/badge/Progress-疫情延期中-red">
     <img src="https://img.shields.io/badge/Language-C-brightgreen">
 </p>
 
 ## 📕 介绍
 控制器主控芯片采用STM32F405RGT6，控制器底层基于HAL库和FreeRTOS实时操作系统，预留CAN、USART、SWD、USB接口各一，便于通信和控制的工程应用。该控制器提供双路无刷电机控制，同时分别预留编码器接口与电压采样接口，适合于有感FOC与无感FOC的控制应用或算法验证。同时该控制板还可以适合于异步电机的矢量控制。
+
+**当前进度：现在因为疫情，PCB打的板送不过来，元件的快递也迟迟发不了，制作延期中……**
 
 > **注意：此项目为硬件设计与算法验证项目，当前正处于设计和验证阶段，未进行完善的工程应用测试和极限参数的压力测试，请勿直接使用，以避免出现安全问题和财产损失，后续的验证情况会同步更新**
 
