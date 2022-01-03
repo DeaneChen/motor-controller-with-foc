@@ -1,7 +1,7 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2021-12-08 13:26:15
- * @LastEditTime : 2021-12-13 01:11:49
+ * @LastEditTime : 2022-01-03 19:21:44
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\README.md
@@ -24,14 +24,12 @@
     <img src="https://img.shields.io/badge/Release-v0.1.0-blue">
     <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&label=Gitee%20stars&url=https://gitee.com/api/v5/repos/luheqiu/motor-controller-with-foc&query=$.stargazers_count">
     <img src="https://img.shields.io/badge/Platform-KEIL & AD-lightgray">
-    <img src="https://img.shields.io/badge/Progress-疫情延期中-red">
+    <img src="https://img.shields.io/badge/Progress-期末考试中-yellow">
     <img src="https://img.shields.io/badge/Language-C-brightgreen">
 </p>
 
 ## 📕 介绍
 控制器主控芯片采用STM32F405RGT6，控制器底层基于HAL库和FreeRTOS实时操作系统，预留CAN、USART、SWD、USB接口各一，便于通信和控制的工程应用。该控制器提供双路无刷电机控制，同时分别预留编码器接口与电压采样接口，适合于有感FOC与无感FOC的控制应用或算法验证。同时该控制板还可以适合于异步电机的矢量控制。
-
-**当前进度：现在因为疫情，PCB打的板送不过来，元件的快递也迟迟发不了，制作延期中……**
 
 > **注意：此项目为硬件设计与算法验证项目，当前正处于设计和验证阶段，未进行完善的工程应用测试和极限参数的压力测试，请勿直接使用，以避免出现安全问题和财产损失，后续的验证情况会同步更新**
 
@@ -40,7 +38,23 @@
 <p align="center">
     <img width="75%" src="./Document/Image/PCB仿真3D示意图-背面.png" alt="PCB仿真3D示意图-背面">
     <img width="75%" src="./Document/Image/PCB仿真3D示意图-正面.png" alt="PCB仿真3D示意图-正面">
+    <img width="75%" src="./Document/Image/硬件完成效果图-正面.jpg" alt="PCB仿真3D示意图-正面">
+    <img width="75%" src="./Document/Image/硬件完成效果图-背面.jpg" alt="PCB仿真3D示意图-正面">
 </p>
+
+## 🎬 进度
+
+### 问题更新
+
+**[2021.12.27] 焊接完成**
+
+前段时间完成了初步的焊接工作，并在焊接过程和焊接完成的电气测试中发现如下问题：
+
+1. CJT1117引脚映射错误，具体为：2→3，3→1，1→2。本次为了先行验证整体是否可行，并寻找更多错误，通过旋转CJT1117芯片45°强行修改。实际制作等待 v0.2 版本进行调整。
+2. KIA50N03的漏源耐压是30V，因此额定电压建议20V以下。如果需要30V以上的驱动电压，应当更换为KIA50N06。这个是我买错了，KIA50N06的耐压是60V。这两款MOSFET我均已购买，等后续性能测试再看看是否好用，不好用再换。（个人感觉这两款MOSFET都好便宜，每片不到1元。）
+3. 此款128x64的OLED屏幕，可以使用 3 - wire SPI 进行通信，即片选CS、时钟SCK和数据MOSI。但是，在编写点灯代码（进行能否运行的可行性测试）的时候，仔细看了一下OLED数据手册，发现如果使用3线SPI通信，它的协议是非标的。OLED每帧数据需要九个时钟，传输九个比特，后面八位为传输的一个字节，第一位用于决定这个字节是命令还是数据。这就很难受了，这意味着我难以使用STM32的硬件SPI，也难以使用 “DMA+中断” 的方式进行数据传输，我需要使用软件模拟SPI接口，这一方面多占用了CPU，另一方面也浪费了为特地为通信留出来的支持配置为硬件SPI的引脚IO。**这说明：硬件设计也需要考虑数据手册的软件部分**
+
+顺带吐槽一句，不知道是因为黑色焊油的问题还是我焊接手法的问题，感觉这个板子的焊油层很容易磨掉啊，好几处都露出铜皮了。（还是说是某创板的问题？）
 
 ### 什么是FOC
 FOC，即Field Oriented Control的缩写，可以译为磁场定向控制或矢量控制。是一种针对异步电机或直流无刷电机的变频调速方式，具有以下几个特点：
@@ -146,6 +160,7 @@ FOC，即Field Oriented Control的缩写，可以译为磁场定向控制或矢�
 2. 使用趁手的焊台进行焊接。
 3. 检查焊接与上电是否正常。
 4. 进行FOC控制代码的设计与验证。（或等我更新）
+
 
 
 
