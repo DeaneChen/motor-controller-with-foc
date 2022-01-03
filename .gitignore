@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Keil Object Files
+/Software/MainController/.vscode
+/Software/MainController/.mxproject
+/Software/MainController/MDK-ARM/DebugConfig
+/Software/MainController/MDK-ARM/MainController
+/Software/MainController/MDK-ARM/MainController.uvguix.Deane Chen
