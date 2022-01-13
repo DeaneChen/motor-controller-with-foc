@@ -1,10 +1,10 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2022-01-13 17:05:55
- * @LastEditTime : 2022-01-13 17:59:15
+ * @LastEditTime : 2022-01-13 20:05:05
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \motor-controller-with-foc\LOG.md
+ * @FilePath     : \motor-controller-with-foc\LOG.md\
  * @HomePage     : https://www.luheqiu.com
 -->
 
@@ -23,7 +23,11 @@
 
 ## LOG
 
+<span id="2021-12-27">
+
 ### [2021.12.27] 焊接完成
+
+</span>
 
 前段时间完成了初步的焊接工作，并在焊接过程和焊接完成的电气测试中发现如下问题：
 
@@ -34,7 +38,11 @@
 
 顺带吐槽一句，不知道是因为黑色焊油的问题还是我焊接手法的问题，感觉这个板子的焊油层很容易磨掉啊，好几处都露出铜皮了。（还是说是某创板的问题？）
 
-### [2021.01.09] 查找到两个硬件BUG
+<span id="2022-01-09">
+
+### [2022.01.09] 查找到两个硬件BUG
+
+</span>
 
 **BUG1:** 修复了主电源的问题
 
@@ -67,7 +75,12 @@
     <img width="45%" src="./Document/LogImage/2022-01-09-Q2-1.png" alt="2022-01-09-Q2-1.png">
 </p>
 
-### [2021.01.13] 屏幕驱动编写完成
+
+<span id="2022-01-13"> 
+
+### [2022.01.13] 屏幕驱动编写完成
+
+</span>
 
 1. 完成了显示器屏幕驱动的编写，该部分代码分为三部分:
     + 通讯层 spi.c
