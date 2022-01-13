@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 17:18:35
- * @LastEditTime : 2021-12-29 23:35:18
+ * @LastEditTime : 2022-01-07 19:36:07
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \MainController\Hardware\spi.c
@@ -9,7 +9,7 @@
  */
 #include "spi.h"
 
-void Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
+SPI8BitsType Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
 
 SPI_t spi = {SPI_FREE, Transmit8BitsWithCD};
 
@@ -22,7 +22,11 @@ SPI_t spi = {SPI_FREE, Transmit8BitsWithCD};
  * @param  {16Bits} Size    数据大小。警告：该处未作溢出检测！
  * @retval none
  */
-void Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size){
+SPI8BitsType Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size){
+
+  if(spi.spi_state == SPI_BUSY)
+    return 1;
+  spi.spi_state = SPI_BUSY;
 
   /* 发送pData所指向的，大小位size的所数据 */
   for (SPI8BitsType dataBytes = 0; dataBytes < size; dataBytes++,pData++){
@@ -47,6 +51,9 @@ void Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsTy
       data <<= 1;
     }
   }
+
+  spi.spi_state = SPI_FREE;
+  return 0;
 
 }
 

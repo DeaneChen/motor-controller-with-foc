@@ -19,6 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -26,6 +28,9 @@
 /* USER CODE BEGIN Includes */
 #include "screen_drive.h"
 #include "spi.h"
+#include "led.h"
+#include "lgui.h"
+#include "picture.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -88,9 +93,26 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART3_UART_Init();
+  MX_TIM6_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+  led.OFF();
   oled.Init();
-  oled.Draw(5,10);
+  //oled.Draw(10, 10, 1);
+  lgui.ShowPicture(0, 0, foc, 48, 16, 1); lgui.ShowString(48, 16, 8, 1, 1, (uint8_t*)"v0.1");
+
+  lgui.Fill(3, 33, 16, 45, 1);
+  lgui.Fill(3, 49, 16, 61, 1);
+  lgui.ShowString(4, 44, 12, 0, 1, (uint8_t*)"M0");
+  lgui.ShowString(4, 60, 12, 0, 1, (uint8_t*)"M1");
+
+  lgui.ShowString(18, 36, 8, 1, 1, (uint8_t*)"N=%4drpm F=%1.2fNM", 21,0.51);
+  lgui.ShowString(18, 45, 8, 1, 1, (uint8_t*)"X=%13drad",13548641);
+
+  lgui.ShowString(18, 54, 8, 1, 1, (uint8_t*)"N=%4drpm F=%1.2fNM",1345,0.01);
+  lgui.ShowString(18, 63, 8, 1, 1, (uint8_t*)"X=%13drad",2313);
+
+  //lgui.ShowString(0, 30, 12, 1, 1, (uint8_t*)"A:%04d",20);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,14 +122,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    HAL_GPIO_TogglePin(FnLED_GPIO_Port,FnLED_Pin);
-    //HAL_GPIO_TogglePin(SPI_SCK_GPIO_Port, SPI_SCK_Pin);
-    HAL_Delay(500);
-    //SPI_SCK_SET();  
-    //SPI_SCK_RESET();  
-    //SPI_SCK_SET();  
-    //SPI_SCK_RESET(); 
-    
+    //led.Shift();
+    //HAL_Delay(500);
+    HAL_ADC_Start(&hadc1);
+    if(HAL_ADC_PollForConversion(&hadc1,0xff)==HAL_OK){
+      lgui.ShowString(4,26,8,1,1,(uint8_t*)"Uin=%2.2fV",3.3f*HAL_ADC_GetValue(&hadc1)/4096*12.026f);
+    }
+    HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }
@@ -160,6 +181,12 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+   if(htim == &htim6){
+     LED_PeriodElapsedCallback();
+   }
+}
 /* USER CODE END 4 */
 
 /**

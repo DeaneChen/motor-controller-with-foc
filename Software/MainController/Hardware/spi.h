@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 17:18:55
- * @LastEditTime : 2022-01-03 14:11:41
+ * @LastEditTime : 2022-01-12 18:09:35
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \MainController\Hardware\spi.h
@@ -30,7 +30,12 @@ typedef enum{
 
 
 typedef struct{
-  SPI_State_e spi_state;    //总线状态
+
+  
+  /**
+   * @brief  总线状态，忙时将无法使用总线
+   */
+  SPI_State_e spi_state;    
 
   /**
    * @brief  以阻塞的方式发送带一位数据控制字的八位数据（共计9位）
@@ -38,9 +43,9 @@ typedef struct{
    *                            例如在3-wire SPI的OLED通讯中，每帧有九位：D/C#，D7~D0
    * @param  {8Bits} *pData   数据指针。指向所存的数据数组
    * @param  {16Bits} Size    数据大小。警告：该处未作溢出检测！
-   * @retval none
+   * @retval {8bits} 状态码 0:成功传输 1:总线忙
    */
-  void (*Transmit8BitsWithCD)(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
+  SPI8BitsType (*Transmit8BitsWithCD)(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
 }SPI_t;
 
 

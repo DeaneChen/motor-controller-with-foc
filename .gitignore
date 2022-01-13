@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Keil Object Files
-/Software/MainController/.vscode
+*.vscode
 /Software/MainController/.mxproject
 /Software/MainController/MDK-ARM/DebugConfig
 /Software/MainController/MDK-ARM/MainController
