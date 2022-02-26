@@ -1,14 +1,14 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 17:34:46
- * @LastEditTime : 2022-01-12 19:52:41
+ * @LastEditTime : 2022-01-21 21:22:27
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Hardware\led.h
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\led.h
  * @HomePage     : https://www.luheqiu.com
  */
-#ifndef __LED_H__
-#define __LED_H__
+#ifndef __LED_H
+#define __LED_H
 
 #include "main.h"
 #include "tim.h"

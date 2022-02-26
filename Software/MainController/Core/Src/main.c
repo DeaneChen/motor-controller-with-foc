@@ -22,6 +22,7 @@
 #include "adc.h"
 #include "tim.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -31,6 +32,7 @@
 #include "led.h"
 #include "lgui.h"
 #include "picture.h"
+#include "usbd_cdc_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,6 +97,7 @@ int main(void)
   MX_USART3_UART_Init();
   MX_TIM6_Init();
   MX_ADC1_Init();
+  MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
   led.OFF();
   oled.Init();
@@ -113,6 +116,7 @@ int main(void)
   lgui.ShowString(18, 63, 8, 1, 1, (uint8_t*)"X=%13drad",2313);
 
   //lgui.ShowString(0, 30, 12, 1, 1, (uint8_t*)"A:%04d",20);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -156,7 +160,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLM = 4;
   RCC_OscInitStruct.PLL.PLLN = 168;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();

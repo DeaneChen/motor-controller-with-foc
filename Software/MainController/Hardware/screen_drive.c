@@ -1,10 +1,10 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 15:19:50
- * @LastEditTime : 2022-01-13 02:52:14
+ * @LastEditTime : 2022-01-22 09:43:00
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Hardware\screen_drive.c
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\screen_drive.c
  * @HomePage     : https://www.luheqiu.com
  */
 #include "screen_drive.h"
@@ -94,7 +94,7 @@ void OLED_Init(void)
 
 void OLED_WriteByte(ScreenDrive8BitsType dataType,ScreenDrive8BitsType *pData,ScreenDrive16BitsType size){
   OLED_CS();
-  Screen_WriteByte(dataType, pData, size);
+  SCREEN_WRITE_BYTE(dataType, pData, size);
   OLED_NCS();
 }
 

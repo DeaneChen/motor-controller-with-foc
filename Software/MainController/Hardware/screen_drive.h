@@ -1,14 +1,14 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 15:20:02
- * @LastEditTime : 2022-01-12 19:31:43
+ * @LastEditTime : 2022-01-22 09:43:26
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Hardware\screen_drive.h
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\screen_drive.h
  * @HomePage     : https://www.luheqiu.com
  */
-#ifndef __SCREEN_DRIVE_H__
-#define __SCREEN_DRIVE_H__
+#ifndef __SCREEN_DRIVE_H
+#define __SCREEN_DRIVE_H
 
 #include "main.h"
 #include "spi.h"
@@ -18,7 +18,7 @@ typedef uint8_t  ScreenDrive8BitsType;
 typedef uint16_t ScreenDrive16BitsType;
 
 #define OLED_Delay_ms(ms)   HAL_Delay(ms)    /* 延时控制的函数接口 */       
-#define Screen_WriteByte(dataType,pData,size)  spi.Transmit8BitsWithCD(dataType,pData,size)  /* 发送数据的函数接口 */
+#define SCREEN_WRITE_BYTE(dataType,pData,size)  spi.Transmit8BitsWithCD(dataType,pData,size)  /* 发送数据的函数接口 */
 /*  变量类型与所需的函数接口配置 - END  */
 
 

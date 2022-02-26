@@ -1,14 +1,14 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 17:18:55
- * @LastEditTime : 2022-01-12 18:09:35
+ * @LastEditTime : 2022-01-21 22:31:28
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Hardware\spi.h
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\spi.h
  * @HomePage     : https://www.luheqiu.com
  */
-#ifndef __SPI_H__
-#define __SPI_H__
+#ifndef __SPI_H
+#define __SPI_H
 
 #include "main.h"
 
@@ -46,6 +46,16 @@ typedef struct{
    * @retval {8bits} 状态码 0:成功传输 1:总线忙
    */
   SPI8BitsType (*Transmit8BitsWithCD)(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
+
+
+  /**
+   * @brief  以阻塞的方式发送八位数据
+   * @param  {8Bits} *pData   数据指针。指向所存的数据数组
+   * @param  {16Bits} Size    数据大小。警告：该处未作溢出检测！
+   * @retval {8bits} 状态码 0:成功传输 1:总线忙
+   */
+  SPI8BitsType (*Transmit8Bits)(SPI8BitsType *pData, SPI16BitsType size);
+
 }SPI_t;
 
 

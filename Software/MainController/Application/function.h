@@ -1,18 +1,102 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 22:33:07
- * @LastEditTime : 2022-01-12 22:34:59
+ * @LastEditTime : 2022-01-14 21:52:15
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Application\function.h
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\function.h
  * @HomePage     : https://www.luheqiu.com
  */
 #ifndef __FUNCTION_H
 #define __FUNCTION_H
 
+#include "main.h"
+#include "usart.h"
+
 #define Abs(value)                 (((value)>=0)?(value):(0-(value)))
 #define Constrain(input,low,high)  ((input)<(low)?(low):((input)>(high)?(high):(input))) 
 #define Max(A,B)                   ((A)>=(B)?(A):(B))
 #define Min(A,B)                   ((A)<=(B)?(A):(B))
+
+#define PI    3.14159265f
+
+// PID Part
+typedef struct{
+    float kp,ki,kd;         //PID参数
+}PIDParam_t;
+
+typedef struct{
+
+    PIDParam_t pidParam;      //PID参数
+    
+    float lastError;        //上次误差
+    float prevError;        //前次误差
+    float output;           //输出
+    float outMINLimit;      //输出最大值限制
+    float outMAXLimit;      //输出最小值限制
+    
+}INCPIDController_t;          
+
+typedef struct{
+
+    PIDParam_t pidParam;      //PID参数
+    
+    float lastError;        //上次误差
+    
+    float iTerm;            //积分项
+	float integrationLimit; //积分幅限
+    
+	float FilterPercent;    //一阶低通滤波系数(0,1]
+    float output;           //输出
+    float outMINLimit;      //输出最大值限制
+    float outMAXLimit;      //输出最小值限制
+    
+}POSPIDController_t;  
+
+void INCPID_Update(INCPIDController_t *PID,float target,float input);
+
+/**
+ * @brief  位置式PID
+ * @param  PID     PID控制器指针
+ * @param  target  给定值
+ * @param  input   当前值
+ * @param  dt      控制周期
+ * @retval 
+ */
+float POSPID_Update(POSPIDController_t *PID,float target,float input,float dt);
+
+typedef int Vector3;
+typedef int Vector2;
+typedef int Degree;
+
+
+
+
+/**
+ * @brief  Clarke线性变换，将一个三相电流向量分解为二相正交向量
+ * @param  v1 被变换的三相电流向量，是一个三维的向量
+ * @param  v2 变换得到的二相正交电流向量，是一个二维的向量
+ * @retval none
+ */
+void ClarkeTransformaion(Vector3 *v1, Vector2 *v2);
+
+
+/**
+ * @brief  Park线性变换，将一个二相静止坐标系变换到二相旋转坐标系
+ * @param  v1 被变换的二相静止电流向量
+ * @param  v2 变换得到的二相旋转电流向量
+ * @param  theta 角度
+ * @retval none
+ */
+void ParkTransformaion(Vector2 *v1, Vector2 *v2, Degree theta);
+
+/**
+ * @brief  Park反变换，将一个二相旋转坐标系变换到二相静止坐标系
+ * @param  v1 被变换的二相旋转电流向量
+ * @param  v2 变换得到的二相静止电流向量
+ * @param  theta 角度
+ * @retval none
+ */
+void RevParkTransformaion(Vector2 *v1,Vector2 *v2, Degree theta);
 
 #endif
