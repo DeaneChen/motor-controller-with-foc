@@ -1,7 +1,7 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2021-12-08 13:26:15
- * @LastEditTime : 2022-01-13 20:07:47
+ * @LastEditTime : 2022-03-01 15:42:46
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\README.md
@@ -24,7 +24,7 @@
     <img src="https://img.shields.io/badge/Release-v0.1.0-blue">
     <img src="https://img.shields.io/badge/dynamic/json?style=flat-square&label=Gitee%20stars&url=https://gitee.com/api/v5/repos/luheqiu/motor-controller-with-foc&query=$.stargazers_count">
     <img src="https://img.shields.io/badge/Platform-KEIL & AD-lightgray">
-    <img src="https://img.shields.io/badge/Progress-期末考试中-yellow">
+    <img src="https://img.shields.io/badge/Progress-模块设计中-yellow">
     <img src="https://img.shields.io/badge/Language-C-brightgreen">
 </p>
 

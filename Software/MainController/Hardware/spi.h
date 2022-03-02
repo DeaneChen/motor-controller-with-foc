@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 17:18:55
- * @LastEditTime : 2022-01-21 22:31:28
+ * @LastEditTime : 2022-03-01 17:01:31
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\spi.h
@@ -26,7 +26,7 @@ typedef uint16_t  SPI16BitsType;
 typedef enum{
   SPI_FREE,
   SPI_BUSY
-}SPI_State_e;
+}SPI_state_e;
 
 
 typedef struct{
@@ -35,7 +35,7 @@ typedef struct{
   /**
    * @brief  总线状态，忙时将无法使用总线
    */
-  SPI_State_e spi_state;    
+  SPI_state_e spi_state;    
 
   /**
    * @brief  以阻塞的方式发送带一位数据控制字的八位数据（共计9位）

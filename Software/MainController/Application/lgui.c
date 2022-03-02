@@ -1,17 +1,28 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 19:50:44
- * @LastEditTime : 2022-01-13 16:51:27
+ * @LastEditTime : 2022-03-01 17:07:47
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \MainController\Application\lgui.c
+ * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\lgui.c
  * @HomePage     : https://www.luheqiu.com
  */
 
 #include "lgui.h"
 #include "stdarg.h"
-
+#include "function.h"
 #include "font.h"
+
+
+/* 取大数 */
+#ifndef Max
+  #define Max(A,B)     ((A)>=(B)?(A):(B))
+#endif
+
+ /* 四舍五入 */
+#ifndef Round
+  #define Round(A)     ( ((A)-(int)(A))>=0.5f ? (int)(A+1) : (int)(A))
+#endif
 
 char *itoa(int value, char *string, int radix);
 

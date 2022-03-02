@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 19:52:03
- * @LastEditTime : 2022-01-17 17:14:26
+ * @LastEditTime : 2022-03-01 17:07:43
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\lgui.h
@@ -13,7 +13,7 @@
 
 #include "main.h"
 #include "screen_drive.h"
-#include "function.h"
+
 
 /*  变量类型与所需的函数接口配置 - BEGIN  */
 typedef uint8_t   LGUI8BitsType;
@@ -21,18 +21,6 @@ typedef uint16_t  LGUI16BitsType;
 #define LGUI_DRAWPOINT(x, y, c)  oled.Draw(x, y, c)
 
 /*  变量类型与所需的函数接口配置 - END  */
-
-/* 取大数 */
-#ifndef Max
-  #define Max(A,B)     ((A)>=(B)?(A):(B))
-#endif
-
- /* 四舍五入 */
-#ifndef Round
-  #define Round(A)     ( ((A)-(int)(A))>=0.5f ? (int)(A+1) : (int)(A))
-#endif
-
-
 
 typedef struct
 {

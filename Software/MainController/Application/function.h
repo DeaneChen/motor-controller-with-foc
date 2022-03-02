@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 22:33:07
- * @LastEditTime : 2022-01-14 21:52:15
+ * @LastEditTime : 2022-03-02 15:45:33
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\function.h
@@ -70,7 +70,27 @@ typedef int Vector2;
 typedef int Degree;
 
 
+/**
+ * @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
+ * @param  nptr 字符串指针
+ * @retval 被转换完成的整型数
+ */
+int atoi(const char *nptr);
 
+///**
+// * @brief  字符串比较函数
+// * @param  str1 字符串1
+// * @param  str2 字符串2
+// * @retval 根据第一个字符串与第二个字符串相等、大于或小于，返回0、大于0或小于0
+// */
+//int strcmp(const unsigned char *str1, const unsigned char *str2);
+
+///**
+// * @brief  获取字符串长度函数
+// * @param  str 字符串
+// * @retval 字符串长度
+// */
+//int strlen(const unsigned char *str);
 
 /**
  * @brief  Clarke线性变换，将一个三相电流向量分解为二相正交向量

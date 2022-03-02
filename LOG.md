@@ -1,10 +1,10 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2022-01-13 17:05:55
- * @LastEditTime : 2022-01-13 20:05:05
+ * @LastEditTime : 2022-02-26 19:03:01
  * @LastEditors  : DeaneChen
  * @Description  : 
- * @FilePath     : \motor-controller-with-foc\LOG.md\
+ * @FilePath     : \motor-controller-with-foc\LOG.md
  * @HomePage     : https://www.luheqiu.com
 -->
 
@@ -67,7 +67,7 @@
 
 7. v0.2电路将不使用XL2011，而使用其他的国产同步整流芯片。在提高效率的同时，省去肖特基二极管。
 
-**BUG1:** 查找出了5V供电支路的问题
+**BUG2:** 查找出了5V供电支路的问题
 
 1. 在掉电问题中，更换电容初步缓解后，从远离开关电源的5V口可以带负载上电。而靠近开关电源的5V口仍然上电失败，开关芯片输出为0.6 ~ 0.7V。下图中，可以看到5V供电回路是从XL2011的输出脚和反馈脚之间的反馈回路引出的，这可能导致反馈出现问题使得降压输出失败。虽然通过上述BUG1的修复不再出现问题，但后续设计中也应当避免。
 
