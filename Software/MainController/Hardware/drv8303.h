@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-21 22:14:20
- * @LastEditTime : 2022-02-26 18:12:15
+ * @LastEditTime : 2022-03-03 16:27:11
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\drv8303.h
@@ -12,13 +12,18 @@
 
 #include "main.h"
 #include "spi.h"
+#include "usbd_cdc_if.h"
 
 typedef uint8_t   DRV8303_8BitsType;
 typedef uint16_t DRV8303_16BitsType;
 
+#define SPI_DEBUG(buf)      CDC_Transmit_FS((DRV8303_8BitsType*)buf,strlen(buf))
+#define SPI_REPORT(buf,len) CDC_Transmit_FS((DRV8303_8BitsType*)buf,len)
+
 #define DRV8303_NUM 2   /* DRV8303数量 */
 
 #define DRV8303_WRITE_BYTE(pData,size)  spi.Transmit8Bits(pData,size)  /* 发送数据的函数接口 */
+#define DRV8303_READ_BYTE(pData,size)   spi.Receive8Bits(pData,size)   /* 读取数据的函数接口 */
 
 #define DRV8303_0_CS()   HAL_GPIO_WritePin(M0_CS_GPIO_Port, M0_CS_Pin, GPIO_PIN_RESET)   /* 片选 */
 #define DRV8303_0_NCS()  HAL_GPIO_WritePin(M0_CS_GPIO_Port, M0_CS_Pin, GPIO_PIN_SET)     /* 取消片选 */
@@ -132,8 +137,26 @@ typedef struct{
     drv8303_gain_e          gain;
     drv8303_oc_toff_e       oc_toff;
 
+    /**
+     * @brief  载入DRV8303配置函数，对结构体变量依次赋值后需要调用该函数，将配置数据写入DRV8303硬件
+     * @param  
+     * @retval 
+     */
     void (*LoadConfig)(void);
 
+
+    /**
+     * @brief  寄存器读取函数，可以读取DRV8303四个寄存器的值
+     * @param  regIndex 寄存器序号，取值范围0~3。
+     *                  | 寄存器序号 |       0            1            2           3
+     *                  |  寄存器名  |  状态寄存器0  状态寄存器1  控制寄存器0  控制寄存器1
+     * @param  regData  读取到的寄存器值
+     * @retval 
+     */
+    void (*ReadRegister)(DRV8303_8BitsType regIndex, DRV8303_8BitsType *regData);
+
 } drv8303_t;
+
+extern drv8303_t drv8303[DRV8303_NUM];
 
 #endif

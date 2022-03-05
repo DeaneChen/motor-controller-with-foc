@@ -66,6 +66,10 @@ void Error_Handler(void);
 #define SPI_SDO_GPIO_Port GPIOA
 #define M1_CS_Pin GPIO_PIN_12
 #define M1_CS_GPIO_Port GPIOB
+#define M0_EN_Pin GPIO_PIN_10
+#define M0_EN_GPIO_Port GPIOC
+#define M1_EN_Pin GPIO_PIN_11
+#define M1_EN_GPIO_Port GPIOC
 #define M0_CS_Pin GPIO_PIN_12
 #define M0_CS_GPIO_Port GPIOC
 #define FnLED_Pin GPIO_PIN_2

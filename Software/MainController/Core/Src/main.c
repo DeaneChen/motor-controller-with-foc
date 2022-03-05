@@ -101,6 +101,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   led.OFF();
   oled.Init();
+  HAL_GPIO_WritePin(M0_EN_GPIO_Port,M0_EN_Pin,GPIO_PIN_SET);
+  HAL_GPIO_WritePin(M1_EN_GPIO_Port,M1_EN_Pin,GPIO_PIN_SET);
   //oled.Draw(10, 10, 1);
   lgui.ShowPicture(0, 0, foc, 48, 16, 1); lgui.ShowString(48, 16, 8, 1, 1, (uint8_t*)"v0.1");
 

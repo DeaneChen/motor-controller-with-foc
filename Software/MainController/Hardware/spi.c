@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2021-12-28 17:18:35
- * @LastEditTime : 2022-01-22 09:48:32
+ * @LastEditTime : 2022-03-03 14:28:25
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\spi.c
@@ -11,9 +11,9 @@
 
 SPI8BitsType Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI16BitsType size);
 SPI8BitsType Transmit8Bits(SPI8BitsType *pData, SPI16BitsType size);
+SPI8BitsType Receive8Bits(SPI8BitsType *pData, SPI16BitsType size);
 
-SPI_t spi = {SPI_FREE, Transmit8BitsWithCD, Transmit8Bits};
-
+SPI_t spi = {SPI_FREE, Transmit8BitsWithCD, Transmit8Bits, Receive8Bits};
 
 /**
  * @brief  以阻塞的方式发送带一位数据控制字的八位数据（共计9位）
@@ -63,9 +63,9 @@ SPI8BitsType Transmit8BitsWithCD(SPI8BitsType dataType, SPI8BitsType *pData, SPI
 
 SPI8BitsType Transmit8Bits(SPI8BitsType *pData, SPI16BitsType size){
     
-    if(spi.spi_state == SPI_BUSY)
-      return 1;
-    spi.spi_state = SPI_BUSY;
+  if(spi.spi_state == SPI_BUSY)
+    return 1;
+  spi.spi_state = SPI_BUSY;
 
   /* 发送pData所指向的，大小为size的所数据 */
   for (SPI8BitsType dataBytes = 0; dataBytes < size; dataBytes++,pData++){
@@ -90,3 +90,40 @@ SPI8BitsType Transmit8Bits(SPI8BitsType *pData, SPI16BitsType size){
   return 0;
 }
 
+
+
+  /**
+   * @brief  以阻塞的方式接收八位数据
+   * @param  {8Bits} *pData   数据指针。指向所存的数据数组
+   * @param  {16Bits} Size    数据大小。警告：该处未作溢出检测！
+   * @retval {8bits} 状态码 0:成功传输 1:总线忙
+   */
+SPI8BitsType Receive8Bits(SPI8BitsType *pData, SPI16BitsType size){
+  
+  if(spi.spi_state == SPI_BUSY)
+    return 1;
+  spi.spi_state = SPI_BUSY;
+
+  SPI_SCK_RESET();
+
+  /* 接收大小为size的数据并存入pData内部 */
+  for (SPI8BitsType dataBytes = 0; dataBytes < size; dataBytes++,pData++){
+    
+    /* 数据暂存变量 */
+    SPI8BitsType data;
+    for (SPI8BitsType i = 0; i < 8; i++){
+      SPI_SCK_SET();
+      data <<= 1;
+      SPI_SCK_RESET();
+      data += SPI_SDI_READ();
+    }
+
+    *pData = data;
+  }
+
+  SPI_SCK_RESET();
+
+  spi.spi_state = SPI_FREE;
+  return 0;
+
+}

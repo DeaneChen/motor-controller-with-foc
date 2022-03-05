@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-02-26 18:13:38
- * @LastEditTime : 2022-03-02 17:18:46
+ * @LastEditTime : 2022-03-03 16:25:05
  * @LastEditors  : DeaneChen
  * @Description  : 指令解析模块源文件
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\command.c
@@ -9,8 +9,9 @@
  */
 #include "command.h"
 #include "function.h"
-
 #include "usbd_cdc_if.h"
+
+#include "drv8303.h"
 
 /* 取大数 */
 #ifndef Max
@@ -26,15 +27,58 @@
 
 command_buf_t commandBuf = {0};
 
-void version(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
+void Version(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
     COMMAND_DEBUG("FOC V1.2\n");
+}
+
+void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
+
+    if(argNum<2){
+        COMMAND_DEBUG("缺少参数\n");
+        return;
+    }
+    
+    if(!strcmp(argBuf+argsIndex[0],"-config")){
+        if(!strcmp(argBuf+argsIndex[1],"-w")){
+            if(argNum<3){
+                COMMAND_DEBUG("缺少参数\n");
+                return;
+            }
+            COMMAND_8BitsType drv8303Index = atoi(argBuf+argsIndex[2]);
+            if(drv8303Index <= 1){
+                drv8303[drv8303Index].LoadConfig();
+            }else{
+                COMMAND_DEBUG("DRV8303 is not exist\n");
+            }
+        }else if(!strcmp(argBuf+argsIndex[1],"-r")){
+            if(argNum<4){
+                COMMAND_DEBUG("缺少参数\n");
+                return;
+            }
+            COMMAND_8BitsType drv8303Index = atoi(argBuf+argsIndex[2]);
+            COMMAND_8BitsType regIndex = atoi(argBuf+argsIndex[3]);
+            COMMAND_8BitsType regData[3];
+            if(drv8303Index <= 1){
+                if(regIndex <= 3){
+                    drv8303[drv8303Index].ReadRegister(regIndex,regData);
+                }else{
+                    COMMAND_DEBUG("reg is not exist\n");
+                }
+            }else{
+                COMMAND_DEBUG("DRV8303 is not exist\n");
+            }
+            
+        }
+    }else{
+        COMMAND_DEBUG("未知参数\n");
+    }
 }
 
 /* 命令列表 */
 command_list_t command_list[] = {
 /*       命令名       最大参数数量           命令函数         帮助信息         */
-    {   "version",         0       ,        version        ,     0                    }
-
+    {   "/version",         0       ,        Version        ,     0                    },
+    {   "/drv8303",         4       ,        DRV8303        ,     0                    }
     };
 
 
@@ -98,7 +142,7 @@ void ParsingCommand(void){
     COMMAND_16BitsType i = 0;
     COMMAND_charType commandName[COMMAND_NAME_LEN];
     for ( ; i < commandBuf.bufLen ; i++){
-        if(commandBuf.buf[i]==' ' || commandBuf.buf[i]==0x0D || commandBuf.buf[i]=='\0'){
+        if(commandBuf.buf[i]==' ' || commandBuf.buf[i]==0x0D || commandBuf.buf[i]==0x0A || commandBuf.buf[i]=='\0'){
             commandName[i] = '\0';
             break;
         }else{
@@ -115,7 +159,7 @@ void ParsingCommand(void){
             isSpace = 1;
             commandBuf.buf[i] = '\0';
             continue;
-        }else if( commandBuf.buf[i]==0x0D || commandBuf.buf[i]=='\0' ){
+        }else if( commandBuf.buf[i]==0x0D || commandBuf.buf[i]==0x0A || commandBuf.buf[i]=='\0' ){
             commandBuf.buf[i] = '\0';
             break;
         }else{
