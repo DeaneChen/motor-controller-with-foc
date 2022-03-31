@@ -33,6 +33,7 @@
 #include "lgui.h"
 #include "picture.h"
 #include "usbd_cdc_if.h"
+#include "command.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,7 +119,7 @@ int main(void)
   lgui.ShowString(18, 63, 8, 1, 1, (uint8_t*)"X=%13drad",2313);
 
   //lgui.ShowString(0, 30, 12, 1, 1, (uint8_t*)"A:%04d",20);
-  
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -128,6 +129,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    
+
+    
     //led.Shift();
     //HAL_Delay(500);
     HAL_ADC_Start(&hadc1);
@@ -135,6 +139,7 @@ int main(void)
       lgui.ShowString(4,26,8,1,1,(uint8_t*)"Uin=%2.2fV",3.3f*HAL_ADC_GetValue(&hadc1)/4096*12.026f);
     }
     HAL_Delay(200);
+    ParsingCommand();
   }
   /* USER CODE END 3 */
 }

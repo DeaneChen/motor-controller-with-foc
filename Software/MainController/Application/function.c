@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-14 20:09:32
- * @LastEditTime : 2022-03-02 17:01:58
+ * @LastEditTime : 2022-03-31 17:52:30
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\function.c
@@ -77,24 +77,89 @@ float POSPID_Update(POSPIDController_t *PID,float target,float input,float dt){
 
 
 /**
- * @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
- * @param  nptr 字符串指针
- * @retval 
- */
+* @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
+* @param  nptr 字符串指针
+* @retval 
+*/
 int atoi (const char* nptr){
-    int n = 0, sign;
-    sign = (*nptr == '-') ? (-1) : (1);  //判断符号
-    if ( (*nptr) == '+' || (*nptr) == '-' ) //跳过符号
-        nptr++;
-    for ( ; *nptr != '\0'; nptr++ ){
-        if( (*nptr)<'0' || (*nptr)>'9' )
-            break;
-        n = 10 * n + ((*nptr) - '0');
-    }
+   int n = 0, sign;
+   sign = (*nptr == '-') ? (-1) : (1);  //判断符号
+   if ( (*nptr) == '+' || (*nptr) == '-' ) //跳过符号
+       nptr++;
+   for ( ; *nptr != '\0'; nptr++ ){
+       if( (*nptr)<'0' || (*nptr)>'9' )
+           break;
+       n = 10 * n + ((*nptr) - '0');
+   }
 
-    return sign * n;
+   return sign * n;
 }
 
+
+char *itoa(int value, char *string, int radix)
+{
+    int     i, d;
+    char    *ptr = string;
+    char    buf[33];
+
+    /* This implementation only works for decimal numbers. */
+    if (radix > 16 || radix < 2 )
+    {
+        *ptr = 0;
+        return string;
+    }
+
+    if (!value)
+    {
+        *ptr++ = 0x30;
+        *ptr = 0;
+        return string;
+    }
+
+    /* if this is a negative value insert the minus sign. */
+    if (value < 0)
+    {
+        *ptr++ = '-';
+
+        /* Make the value positive. */
+        value *= -1;
+    }
+
+//    for (i = 1000000000; i > 0; i /= 10)
+//    {
+//        d = value / i;
+
+//        if (d || flag)
+//        {
+//            *ptr++ = (char)(d + 0x30);
+//            value -= (d * i);
+//            flag = 1;
+//        }
+//    }
+
+    for (i = 0; i < 33 && value != 0 ; i++){
+        d = value % radix;
+        char c = d < 10 ? d + '0' : d - 10 + 'A';
+        buf[i] = c;
+        value /= radix;
+    }
+
+    if (i > 32 )
+    {
+       *ptr = 0;
+       return string;
+    }
+
+   for (--i; i >= 0;--i){
+       *ptr++ = buf[i];
+   }
+
+    /* Null terminate the string. */
+    *ptr = 0;
+
+   return string;
+
+} /* NCL_Itoa */
 
 //int strcmp(const unsigned char *str1, const unsigned char *str2)
 //{

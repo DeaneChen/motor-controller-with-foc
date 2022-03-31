@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 22:33:07
- * @LastEditTime : 2022-03-02 15:45:33
+ * @LastEditTime : 2022-03-31 16:56:09
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\function.h
@@ -71,11 +71,20 @@ typedef int Degree;
 
 
 /**
- * @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
- * @param  nptr 字符串指针
- * @retval 被转换完成的整型数
- */
+* @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
+* @param  nptr 字符串指针
+* @retval 被转换完成的整型数
+*/
 int atoi(const char *nptr);
+
+/**
+* @brief  itoa ( integer to ascii) 为把整型数转换为字符串的一个函数
+* @param  value 待转换的
+* @param  string 存储转换结果的指针，未作溢出处理，请自己确保开辟的空间足够
+* @param  radix 转换的进制，例如 10 为按照10进制转换。
+* @retval 转换成的字符串(不推荐使用)
+*/
+char *itoa(int value, char *string, int radix);
 
 ///**
 // * @brief  字符串比较函数

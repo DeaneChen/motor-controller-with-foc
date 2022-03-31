@@ -18,7 +18,7 @@ typedef uint8_t   DRV8303_8BitsType;
 typedef uint16_t DRV8303_16BitsType;
 
 #define SPI_DEBUG(buf)      CDC_Transmit_FS((DRV8303_8BitsType*)buf,strlen(buf))
-#define SPI_REPORT(buf,len) CDC_Transmit_FS((DRV8303_8BitsType*)buf,len)
+#define SPI_REPORT(buf,len) while(CDC_Transmit_FS((DRV8303_8BitsType*)buf,len)!=USBD_OK)
 
 #define DRV8303_NUM 2   /* DRV8303数量 */
 

@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-02-26 18:13:38
- * @LastEditTime : 2022-03-03 16:25:05
+ * @LastEditTime : 2022-03-31 17:54:23
  * @LastEditors  : DeaneChen
  * @Description  : 指令解析模块源文件
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\command.c
@@ -23,13 +23,15 @@
     #define Min(A,B)   ((A)<=(B)?(A):(B))
 #endif
 
-#define COMMAND_DEBUG(buf) CDC_Transmit_FS((COMMAND_8BitsType*)buf,strlen(buf))
+#define COMMAND_DEBUG(buf) while(CDC_Transmit_FS((COMMAND_8BitsType*)buf,strlen(buf))!=USBD_OK)
 
 command_buf_t commandBuf = {0};
 
 void Version(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
     COMMAND_DEBUG("FOC V1.2\n");
 }
+
+void Help(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex);
 
 void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
 
@@ -38,7 +40,10 @@ void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16Bits
         return;
     }
     
+    /* 配置DRV8303 */
     if(!strcmp(argBuf+argsIndex[0],"-config")){
+
+        /* 写寄存器 */
         if(!strcmp(argBuf+argsIndex[1],"-w")){
             if(argNum<3){
                 COMMAND_DEBUG("缺少参数\n");
@@ -50,6 +55,8 @@ void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16Bits
             }else{
                 COMMAND_DEBUG("DRV8303 is not exist\n");
             }
+
+        /* 读寄存器 */
         }else if(!strcmp(argBuf+argsIndex[1],"-r")){
             if(argNum<4){
                 COMMAND_DEBUG("缺少参数\n");
@@ -77,11 +84,26 @@ void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16Bits
 /* 命令列表 */
 command_list_t command_list[] = {
 /*       命令名       最大参数数量           命令函数         帮助信息         */
-    {   "/version",         0       ,        Version        ,     0                    },
-    {   "/drv8303",         4       ,        DRV8303        ,     0                    }
+    {   "/drv8303",         4       ,        DRV8303        ,     "\t Config The DRV8303 \t /drv8303 -config [-w/r] [deviceID] [regID](optional) \r\n" },
+    {   "/help"   ,         0       ,        Help           ,     "\t get the command help \r\n"       },
+    {   "/version",         0       ,        Version        ,     "\t check the device version \r\n"       }
     };
 
+/**
+ * @brief  输出命令的帮助信息
+ * @param  *
+ * @retval *
+ */
+void Help(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
+  
+    for(COMMAND_16BitsType i = 0; i < sizeof(command_list)/sizeof(command_list[0]); i++){
+        
+        COMMAND_DEBUG(command_list[i].commandName);
 
+        COMMAND_DEBUG(command_list[i].help);
+
+    }
+}
 
 /**
  * @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
@@ -127,7 +149,7 @@ void LoadCommandBuf(COMMAND_8BitsType *Buf, COMMAND_16BitsType Len){
 
 
     /* 调用命令解析器 */
-    ParsingCommand();
+    //ParsingCommand();
 }
 
 

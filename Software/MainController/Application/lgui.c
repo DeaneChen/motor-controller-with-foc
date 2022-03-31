@@ -1,7 +1,7 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 19:50:44
- * @LastEditTime : 2022-03-01 17:07:47
+ * @LastEditTime : 2022-03-31 17:25:32
  * @LastEditors  : DeaneChen
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\lgui.c
@@ -24,7 +24,7 @@
   #define Round(A)     ( ((A)-(int)(A))>=0.5f ? (int)(A+1) : (int)(A))
 #endif
 
-char *itoa(int value, char *string, int radix);
+// char *itoa(int value, char *string, int radix);
 
 
 void ShowPicture(LGUI16BitsType x, LGUI16BitsType y, const LGUI8BitsType *p, LGUI16BitsType img_x, LGUI16BitsType img_y, LGUI8BitsType img_depth);
@@ -304,51 +304,54 @@ void Fill(LGUI16BitsType sx, LGUI16BitsType sy, LGUI16BitsType ex, LGUI16BitsTyp
     
 }
 
-char *itoa(int value, char *string, int radix)
-{
-    int     i, d;
-    int     flag = 0;
-    char    *ptr = string;
 
-    /* This implementation only works for decimal numbers. */
-    if (radix != 10)
-    {
-        *ptr = 0;
-        return string;
-    }
+// char *itoa(int value, char *string, int radix)
+// {
+//     int     i, d;
+//     int     flag = 0;
+//     char    *ptr = string;
 
-    if (!value)
-    {
-        *ptr++ = 0x30;
-        *ptr = 0;
-        return string;
-    }
+//     /* This implementation only works for decimal numbers. */
+//     if (radix != 10)
+//     {
+//         *ptr = 0;
+//         return string;
+//     }
 
-    /* if this is a negative value insert the minus sign. */
-    if (value < 0)
-    {
-        *ptr++ = '-';
+//     if (!value)
+//     {
+//         *ptr++ = 0x30;
+//         *ptr = 0;
+//         return string;
+//     }
 
-        /* Make the value positive. */
-        value *= -1;
-    }
+//     /* if this is a negative value insert the minus sign. */
+//     if (value < 0)
+//     {
+//         *ptr++ = '-';
 
-    for (i = 1000000000; i > 0; i /= 10)
-    {
-        d = value / i;
+//         /* Make the value positive. */
+//         value *= -1;
+//     }
 
-        if (d || flag)
-        {
-            *ptr++ = (char)(d + 0x30);
-            value -= (d * i);
-            flag = 1;
-        }
-    }
+//     for (i = 1000000000; i > 0; i /= 10)
+//     {
+//         d = value / i;
 
-    /* Null terminate the string. */
-    *ptr = 0;
+//         if (d || flag)
+//         {
+//             *ptr++ = (char)(d + 0x30);
+//             value -= (d * i);
+//             flag = 1;
+//         }
+//     }
 
-    return string;
+//     /* Null terminate the string. */
+//     *ptr = 0;
 
-} /* NCL_Itoa */
+//     return string;
+
+// } /* NCL_Itoa */
+
+
 
