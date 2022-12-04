@@ -1,8 +1,8 @@
 <!--
  * @Author       : LuHeQiu
  * @Date         : 2021-12-08 13:26:15
- * @LastEditTime : 2022-03-01 15:42:46
- * @LastEditors  : DeaneChen
+ * @LastEditTime : 2022-12-04 19:14:46
+ * @LastEditors  : LuHeQiu
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\README.md
  * HomePage     : https://luheqiu.com
@@ -162,6 +162,12 @@ FOC，即Field Oriented Control的缩写，可以译为磁场定向控制或矢�
 2. 使用趁手的焊台进行焊接。
 3. 检查焊接与上电是否正常。
 4. 进行FOC控制代码的设计与验证。（或等我更新）
+
+## 📧 联系我
+如有未尽事宜或其他合理问题，可以通过电子邮件联系我
+电子邮箱：<Deane_Chen@foxmail.com>
+个人网站：<https://www.luheqiu.com>
+
 
 
 

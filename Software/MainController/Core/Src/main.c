@@ -149,11 +149,11 @@ int main(void)
     /* USER CODE BEGIN 3 */
     
     U_target_ab = (Vector2){0.1, 0.0};
-    /* 测试算法一耗时 */
+    /* SVPWM 绠楁硶涓�鑰楁椂娴嬮噺 */
     for (int i = 0; i < 100000; i++){
       SVPWM(&U_target_ab, 0.8f, &T_target_uvw);
     }
-    /* 测试算法二耗时 */
+    /* SVPWM 绠楁硶浜岃�楁椂娴嬮噺 */
     for (int i = 0; i < 100000; i++){
       SVPWM2(&U_target_ab, 0.8f, &T_target_uvw);
     }
