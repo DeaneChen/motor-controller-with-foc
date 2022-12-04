@@ -35,21 +35,23 @@ void Help(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsTyp
 
 void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16BitsType* argsIndex){
 
+    char* argBufChar = (char *)argBuf;
+    
     if(argNum<2){
         COMMAND_DEBUG("缺少参数\n");
         return;
     }
     
     /* 配置DRV8303 */
-    if(!strcmp(argBuf+argsIndex[0],"-config")){
+    if(!strcmp(argBufChar+argsIndex[0],"-config")){
 
         /* 写寄存器 */
-        if(!strcmp(argBuf+argsIndex[1],"-w")){
+        if(!strcmp(argBufChar+argsIndex[1],"-w")){
             if(argNum<3){
                 COMMAND_DEBUG("缺少参数\n");
                 return;
             }
-            COMMAND_8BitsType drv8303Index = atoi(argBuf+argsIndex[2]);
+            COMMAND_8BitsType drv8303Index = atoi(argBufChar+argsIndex[2]);
             if(drv8303Index <= 1){
                 drv8303[drv8303Index].LoadConfig();
             }else{
@@ -57,13 +59,13 @@ void DRV8303(COMMAND_8BitsType* argBuf, COMMAND_8BitsType argNum, COMMAND_16Bits
             }
 
         /* 读寄存器 */
-        }else if(!strcmp(argBuf+argsIndex[1],"-r")){
+        }else if(!strcmp(argBufChar+argsIndex[1],"-r")){
             if(argNum<4){
                 COMMAND_DEBUG("缺少参数\n");
                 return;
             }
-            COMMAND_8BitsType drv8303Index = atoi(argBuf+argsIndex[2]);
-            COMMAND_8BitsType regIndex = atoi(argBuf+argsIndex[3]);
+            COMMAND_8BitsType drv8303Index = atoi(argBufChar+argsIndex[2]);
+            COMMAND_8BitsType regIndex = atoi(argBufChar+argsIndex[3]);
             COMMAND_8BitsType regData[3];
             if(drv8303Index <= 1){
                 if(regIndex <= 3){

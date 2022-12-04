@@ -34,6 +34,8 @@
 #include "picture.h"
 #include "usbd_cdc_if.h"
 #include "command.h"
+#include "function.h"
+#include "foc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -53,7 +55,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+__IO float add, mul;
+__IO Vector2 U_target_ab;
+__IO Vector3 T_target_uvw;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,11 +103,25 @@ int main(void)
   MX_TIM6_Init();
   MX_ADC1_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   led.OFF();
   oled.Init();
   HAL_GPIO_WritePin(M0_EN_GPIO_Port,M0_EN_Pin,GPIO_PIN_SET);
   HAL_GPIO_WritePin(M1_EN_GPIO_Port,M1_EN_Pin,GPIO_PIN_SET);
+  
+  
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
+  HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_1);
+  HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_2);
+  HAL_TIMEx_PWMN_Start(&htim1,TIM_CHANNEL_3);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 0);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 0);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 0);  
+  
+  
   //oled.Draw(10, 10, 1);
   lgui.ShowPicture(0, 0, foc, 48, 16, 1); lgui.ShowString(48, 16, 8, 1, 1, (uint8_t*)"v0.1");
 
@@ -130,15 +148,23 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     
+    U_target_ab = (Vector2){0.1, 0.0};
+    /* 测试算法一耗时 */
+    for (int i = 0; i < 100000; i++){
+      SVPWM(&U_target_ab, 0.8f, &T_target_uvw);
+    }
+    /* 测试算法二耗时 */
+    for (int i = 0; i < 100000; i++){
+      SVPWM2(&U_target_ab, 0.8f, &T_target_uvw);
+    }
 
-    
     //led.Shift();
     //HAL_Delay(500);
     HAL_ADC_Start(&hadc1);
     if(HAL_ADC_PollForConversion(&hadc1,0xff)==HAL_OK){
       lgui.ShowString(4,26,8,1,1,(uint8_t*)"Uin=%2.2fV",3.3f*HAL_ADC_GetValue(&hadc1)/4096*12.026f);
     }
-    HAL_Delay(200);
+    //HAL_Delay(10);
     ParsingCommand();
   }
   /* USER CODE END 3 */

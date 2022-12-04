@@ -15,7 +15,7 @@ void OFF(void);
 void Shift(void);
 void SetBrightness(LED8BitsType brightness);
 
-LED_t led = {0, 4, ON, OFF, Shift, SetBrightness};
+LED_t led = {0, 18, ON, OFF, Shift, SetBrightness};
 
 
 void ON(void){

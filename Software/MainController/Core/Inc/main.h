@@ -58,6 +58,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define PWM_PEROID (CKTIM/(2*PWM_FREQ))
+#define CKTIM 168000000
+#define PWM_FREQ 15000
 #define OLED_CS_Pin GPIO_PIN_13
 #define OLED_CS_GPIO_Port GPIOC
 #define SPI_SDI_Pin GPIO_PIN_6

@@ -1,8 +1,8 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 22:33:07
- * @LastEditTime : 2022-03-31 16:56:09
- * @LastEditors  : DeaneChen
+ * @LastEditTime : 2022-12-04 18:19:14
+ * @LastEditors  : LuHeQiu
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Application\function.h
  * @HomePage     : https://www.luheqiu.com
@@ -13,12 +13,16 @@
 #include "main.h"
 #include "usart.h"
 
+typedef  int32_t Fun32BitsNumber;
+
 #define Abs(value)                 (((value)>=0)?(value):(0-(value)))
 #define Constrain(input,low,high)  ((input)<(low)?(low):((input)>(high)?(high):(input))) 
 #define Max(A,B)                   ((A)>=(B)?(A):(B))
 #define Min(A,B)                   ((A)<=(B)?(A):(B))
 
 #define PI    3.14159265f
+
+/* extern float SIN_TABLE[]; */
 
 // PID Part
 typedef struct{
@@ -65,10 +69,6 @@ void INCPID_Update(INCPIDController_t *PID,float target,float input);
  */
 float POSPID_Update(POSPIDController_t *PID,float target,float input,float dt);
 
-typedef int Vector3;
-typedef int Vector2;
-typedef int Degree;
-
 
 /**
 * @brief  atoi ( ascii to integer) 为把字符串转换成整型数的一个函数
@@ -101,31 +101,37 @@ char *itoa(int value, char *string, int radix);
 // */
 //int strlen(const unsigned char *str);
 
-/**
- * @brief  Clarke线性变换，将一个三相电流向量分解为二相正交向量
- * @param  v1 被变换的三相电流向量，是一个三维的向量
- * @param  v2 变换得到的二相正交电流向量，是一个二维的向量
- * @retval none
- */
-void ClarkeTransformaion(Vector3 *v1, Vector2 *v2);
-
 
 /**
- * @brief  Park线性变换，将一个二相静止坐标系变换到二相旋转坐标系
- * @param  v1 被变换的二相静止电流向量
- * @param  v2 变换得到的二相旋转电流向量
- * @param  theta 角度
- * @retval none
+ * @brief  基于查找表(look-up table)的sin函数，使用一个大小为256的表扩展映射四倍用于sin函数查找。
+ *         (sin/cos共用同一张容量为256个float的表)
+ * @param  theta 弧度制角度
+ * @retval sin(theta)
  */
-void ParkTransformaion(Vector2 *v1, Vector2 *v2, Degree theta);
+float SinByLut(float theta);
 
 /**
- * @brief  Park反变换，将一个二相旋转坐标系变换到二相静止坐标系
- * @param  v1 被变换的二相旋转电流向量
- * @param  v2 变换得到的二相静止电流向量
- * @param  theta 角度
- * @retval none
+ * @brief  基于查找表(look-up table)的线性插值版sin函数，使用一个大小为256的表扩展映射四倍用于sin函数查找。
+ *         (sin/cos共用同一张容量为256个float的表)
+ * @param  theta 弧度制角度
+ * @retval sin(theta)
  */
-void RevParkTransformaion(Vector2 *v1,Vector2 *v2, Degree theta);
+float SinByLinearLut(float theta);
+
+/**
+ * @brief  基于查找表(look-up table)的cos函数，使用一个大小为256的表扩展映射四倍用于cos函数查找。
+ *         (sin/cos共用同一张容量为256个float的表)
+ * @param  theta 弧度制角度
+ * @retval cos(theta)
+ */
+float CosByLut(float theta);
+
+/**
+ * @brief  基于查找表(look-up table)的线性插值版cos函数，使用一个大小为256的表扩展映射四倍用于cos函数查找。
+ *         (sin/cos共用同一张容量为256个float的表)
+ * @param  theta 弧度制角度
+ * @retval sin(theta)
+ */
+float CosByLinearLut(float theta);
 
 #endif

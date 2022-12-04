@@ -1,8 +1,8 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-21 22:14:12
- * @LastEditTime : 2022-03-31 18:55:00
- * @LastEditors  : DeaneChen
+ * @LastEditTime : 2022-11-27 15:30:35
+ * @LastEditors  : LuHeQiu
  * @Description  : 
  * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\drv8303.c
  * @HomePage     : https://www.luheqiu.com
@@ -67,11 +67,15 @@ void LoadConfig_0(void){
 
     /* 数据上报 */
     for (DRV8303_8BitsType i=0; i < 4;i++){
-        DRV8303_8BitsType buf[5]= "0x   ";
+        DRV8303_8BitsType buf[5]= "0x00 ";
         if(i==3){
             buf[4] = '\n';
         }
-        itoa(response[i], buf + 2, 16);
+        if(response[i] < 16){
+            itoa(response[i], (char *)buf + 3, 16);
+        }else{
+            itoa(response[i], (char *)buf + 2, 16);
+        }
         SPI_REPORT(buf, 5);
     }
 
@@ -104,11 +108,15 @@ void LoadConfig_1(void){
     DRV8303_1_NCS();
 
     for (DRV8303_8BitsType i=0; i < 4;i++){
-        DRV8303_8BitsType buf[5]= "0x   ";
+        DRV8303_8BitsType buf[5]= "0x00 ";
         if(i==3){
             buf[4] = '\n';
         }
-        itoa(response[i], buf + 2, 16);
+        if(response[i] < 16){
+            itoa(response[i], (char *)buf + 3, 16);
+        }else{
+            itoa(response[i], (char *)buf + 2, 16);
+        }
         SPI_REPORT(buf, 5);
     }
     
@@ -132,11 +140,15 @@ void ReadRegister_0(DRV8303_8BitsType regIndex, DRV8303_8BitsType* regData){
     DRV8303_0_NCS();
     /* 数据上报 */
     for (DRV8303_8BitsType i=0; i < 2;i++){
-        DRV8303_8BitsType buf[5]= "0x   ";
+        DRV8303_8BitsType buf[5]= "0x00 ";
         if(i==1){
             buf[4] = '\n';
         }
-        itoa(response[i], buf + 2, 16);
+        if(response[i] < 16){
+            itoa(response[i], (char *)buf + 3, 16);
+        }else{
+            itoa(response[i], (char *)buf + 2, 16);
+        }
         SPI_REPORT(buf, 5);
     }
 
@@ -162,11 +174,15 @@ void ReadRegister_1(DRV8303_8BitsType regIndex, DRV8303_8BitsType* regData){
     DRV8303_1_NCS();
     /* 数据上报 */
     for (DRV8303_8BitsType i=0; i < 2;i++){
-        DRV8303_8BitsType buf[5]= "0x   ";
+        DRV8303_8BitsType buf[5]= "0x00 ";
         if(i==1){
             buf[4] = '\n';
         }
-        itoa(response[i], buf + 2, 16);
+        if(response[i] < 16){
+            itoa(response[i], (char *)buf + 3, 16);
+        }else{
+            itoa(response[i], (char *)buf + 2, 16);
+        }
         SPI_REPORT(buf, 5);
     }
 

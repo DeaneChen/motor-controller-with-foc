@@ -1,10 +1,10 @@
 /*
  * @Author       : LuHeQiu
  * @Date         : 2022-01-12 17:34:46
- * @LastEditTime : 2022-01-21 21:22:27
- * @LastEditors  : DeaneChen
+ * @LastEditTime : 2022-04-26 00:45:50
+ * @LastEditors  : LuHeQiu
  * @Description  : 
- * @FilePath     : \motor-controller-with-foc\Software\MainController\Hardware\led.h
+ * @FilePath     : \MainController\Hardware\led.h
  * @HomePage     : https://www.luheqiu.com
  */
 #ifndef __LED_H

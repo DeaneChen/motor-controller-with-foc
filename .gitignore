@@ -17,7 +17,6 @@
 *.pch
 
 # Libraries
-*.lib
 *.a
 *.la
 *.lo
@@ -57,4 +56,5 @@ dkms.conf
 /Software/MainController/.mxproject
 /Software/MainController/MDK-ARM/DebugConfig
 /Software/MainController/MDK-ARM/MainController
+/Software/MainController/MDK-ARM/MainController.uvguix.User
 /Software/MainController/MDK-ARM/MainController.uvguix.Deane Chen
